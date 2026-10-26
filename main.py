@@ -139,3 +139,32 @@ def main():
     print("\nnext, we will connect product records to their images.")
 if __name__ == "__main__":
     main()
+
+# test the connection between products and images
+
+catalogue_path = "data/processed/product_catalogue.csv"
+image_metadata_path = "data/raw/images/metadata/images.csv.gz"
+
+# load the product catalogue
+
+products = pd.read_csv(catalogue_path)
+
+# load the image mapping
+
+images = pd.read_csv(image_metadata_path, compression="gzip")
+
+# connect each product to its image path
+
+products = products.merge(
+    images[["image_id", "path"]],
+    left_on="main_image_id",
+    right_on="image_id",
+    how="left"
+)
+
+# show the results
+
+print("\nimage mapping test")
+print(products[["product_id", "title", "main_image_id", "path"]].head(10))
+print("\nproducts with a matched image:", products["path"].notna().sum())
+print("products without a matched image:", products["path"].isna().sum())
