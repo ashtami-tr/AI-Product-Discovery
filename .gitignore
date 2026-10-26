@@ -1,0 +1,16 @@
+# python environment
+.venv/
+__pycache__/
+*.py[cod]
+
+# local datasets and downloaded images
+data/raw/
+data/processed/
+
+# notebook temporary files
+.ipynb_checkpoints/
+
+# editor and operating system files
+.vscode/
+.DS_Store
+Thumbs.db
